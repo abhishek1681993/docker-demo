@@ -1,0 +1,29 @@
+version: "3"
+services:    
+    inteliredis:
+        image: redis
+        ports:
+            - 6379:6379
+    inteliorientdb:
+        image: orientdb:3.0.1
+        ports:
+            - 2424:2424
+            - 2480:2480
+        environment:
+            ORIENTDB_ROOT_PASSWORD: root
+        volumes:
+            - db_data_Local:/orientdb/databases
+    intelipostgres:
+        image: postgres:10.8-alpine
+        ports:
+            - 5432:5432
+        volumes:
+            - pg_data_Local:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: auditdb
+            POSTGRES_PASSWORD: root
+            POSTGRES_USER: postgres
+            PGDATA : /var/lib/postgresql/data/pgdata
+volumes:
+    db_data_Local:
+    pg_data_Local:
